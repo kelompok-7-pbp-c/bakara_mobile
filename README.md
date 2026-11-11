@@ -94,11 +94,11 @@ Dapat melakukan:
 - Menyediakan barang/fasilitas drop-off
 - Mengadakan kegiatan reuse di lingkungan UI
 
-## 8. Tautan Deployment / Akses Aplikasi Mobile
+## 8. Alur Pengintegrasian Data 
 Menyusul
 
 ## 9. Tautan Desain Figma
-https://www.figma.com/design/pU7PzvdlefcBJJkBS5NqQB/Untitled?node-id=2-4&t=QdZKyKytq6PMkH4r-1
+https://www.figma.com/design/pU7PzvdlefcBJJkBS5NqQB/BAKARA?node-id=192-157&p=ft=03hpNDBV1vd8m9Sf-0
 
 ## 10. AI Disclosure
 Dokumentasi penggunaan asisten kecerdasan buatan (AI) oleh anggota tim dalam proses perancangan, pengembangan, dan pengujian aplikasi Bakara versi mobile.
