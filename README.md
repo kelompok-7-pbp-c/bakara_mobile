@@ -33,23 +33,7 @@ Membangun ekosistem berbagi dan penggunaan kembali barang di lingkungan UI berba
 **D. How will this mobile app help them?**
 Menyediakan aplikasi mobile yang terpusat untuk mencari, membeli, meminjam, atau mendonasikan barang antar mahasiswa UI lengkap dengan pencarian by kategori/lokasi, chat langsung dengan pemilik barang di dalam aplikasi, serta sistem rating/review, sehingga proses reuse jadi lebih mudah dan terpusat dibanding hanya lewat grup chat atau story.
 
-## 4. Perbandingan dengan Aplikasi Serupa
-
-Bakara memiliki fokus yang berbeda dibanding platform jual-beli umum maupun platform reuse khusus kampus yang sudah ada (di luar maupun di dalam negeri):
-
-| Platform | Fokus | Perbedaan Bakara (Mobile) |
-|---|---|---|
-| Carousell | Jual-beli barang bekas, skala umum | Bakara fokus pada komunitas mahasiswa UI dalam format aplikasi seluler, bukan sekadar jual-beli |
-| OLX | Marketplace barang bekas, skala umum | Bakara punya konsep gratis, tukar, pinjam, dan jual murah antar mahasiswa |
-| Facebook Marketplace | Jual-beli lokal, skala umum | Bakara lebih spesifik untuk kebutuhan mahasiswa/kampus UI via aplikasi mobile |
-| ReSwap (University of Southern California, California) | Marketplace khusus mahasiswa untuk beli, jual, tukar, dan sewa barang per kategori (pakaian, kebutuhan harian, hunian, carpool) | Bakara berfokus khusus pada sirkulasi barang kebutuhan kuliah & kos via aplikasi seluler, dengan penekanan pada kebutuhan maba/deting |
-| Swapp (Cornell University, New York) | Marketplace jual-beli barang preloved khusus mahasiswa, untuk mengurangi sampah saat peak moving season | Bakara berbasis aplikasi mobile serta menambahkan opsi donasi & pinjam, tidak hanya jual-beli |
-| BaranginAja (UNESA, Surabaya) | Jual-beli barang bekas antar mahasiswa se-kampus dengan sistem komisi platform | Bakara tidak berorientasi profit/komisi, lebih menekankan sirkulasi & berbagi antar kating-deting |
-| Loak.in (Undika, Surabaya) | Jual-beli barang bekas terhubung ke tukang loak via peta | Bakara menyasar sirkulasi barang antar sesama mahasiswa secara eksklusif dalam aplikasi, bukan ke pengepul barang bekas |
-
-**Our Insight**: beberapa platform reuse *khusus kampus* (ReSwap, Swapp) sudah ditemukan di luar negeri, tetapi implementasinya di Indonesia masih sangat jarang, dan yang sudah ada (BaranginAja, Loak.in) masih murni berorientasi jual-beli tanpa elemen pinjam/donasi. Bakara mengisi gap ini dengan menggabungkan jual, pinjam, dan donasi dalam satu ekosistem mobile berbasis komunitas UI.
-
-## 5. Daftar Modul
+## 4. Daftar Modul
 
 | No | Modul | Entitas Utama | CRUD | PIC |
 |---:|---|---|---|---|
@@ -59,16 +43,7 @@ Bakara memiliki fokus yang berbeda dibanding platform jual-beli umum maupun plat
 | 4 | **Transaksi & Tracking Status** | Transaksi | **Create:** Mulai transaksi dari minat<br>**Read:** Lihat status & riwayat transaksi<br>**Update:** Ubah status (nego → selesai)<br>**Delete:** Batalkan transaksi | James Adi Putra |
 | 5 | **Rating & Review** | Review | **Create:** Beri rating & ulasan setelah transaksi selesai<br>**Read:** Lihat rating/review di profil user<br>**Update:** Edit review sendiri<br>**Delete:** Hapus review sendiri | Nurul Zakiyah Ovi |
 
-## 6. Sumber Public API / Mock API
-
-| API | Kegunaan |
-|---|---|
-| **OpenStreetMap API** | Digunakan untuk kebutuhan lokasi pada aplikasi mobile, seperti lokasi kampus/fakultas UI, lokasi barang, dan titik pengambilan barang. |
-| **DummyJSON API** | Digunakan sebagai mock API / data dummy untuk keperluan prototyping dan testing awal tampilan daftar barang, kategori, serta ulasan pada aplikasi seluler sebelum diintegrasikan penuh dengan backend. |
-| **Open Library API** | Digunakan untuk mengambil metadata buku secara otomatis, seperti judul, penulis, dan sampul buku ketika pengguna mengunggah atau mencari buku kuliah preloved di aplikasi. |
-              
-
-## 7. Jenis/Peran Pengguna Aplikasi (User Role & Target User)
+## 5. Jenis/Peran Pengguna Aplikasi (User Role & Target User)
 
 ### Mahasiswa (role utama)
 Dapat melakukan:
@@ -88,19 +63,13 @@ Dapat melakukan:
 - Mengelola kategori
 - Memantau aktivitas platform mobile
 
-### Organisasi/Fakultas (role tambahan jika memungkinkan)
-Dapat melakukan:
-- Membuat program donasi via aplikasi
-- Menyediakan barang/fasilitas drop-off
-- Mengadakan kegiatan reuse di lingkungan UI
-
-## 8. Alur Pengintegrasian Data 
+## 6. Alur Pengintegrasian Data 
 Menyusul
 
-## 9. Tautan Desain Figma
+## 7. Tautan Desain Figma
 https://www.figma.com/design/pU7PzvdlefcBJJkBS5NqQB/BAKARA?node-id=192-157&p=ft=03hpNDBV1vd8m9Sf-0
 
-## 10. AI Disclosure
+## 8. AI Disclosure
 Dokumentasi penggunaan asisten kecerdasan buatan (AI) oleh anggota tim dalam proses perancangan, pengembangan, dan pengujian aplikasi Bakara versi mobile.
 
 --- 
