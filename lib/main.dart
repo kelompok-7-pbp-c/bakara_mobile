@@ -1,121 +1,145 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'core/theme/app_colors.dart';
+import 'widgets/bakara_app_bar.dart';
+import 'widgets/bakara_bottom_nav.dart';
+import 'widgets/bakara_drawer.dart';
+
+import 'main_page/screens/home_page.dart';
+import 'katalog/screens/katalog_page.dart';
+import 'transaksi/screens/transaksi_page.dart';
+import 'profile/screens/profile_page.dart';
+import 'minat_kontak/screens/minat_kontak_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
+  runApp(const BakaraApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+/// Root widget aplikasi Bakara Mobile.
+class BakaraApp extends StatelessWidget {
+  const BakaraApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+      title: 'Bakara Mobile',
+      debugShowCheckedModeBanner: false,
+      theme: _buildTheme(),
+      routes: {
+        '/': (context) => const BakaraShell(),
+        '/minat-kontak': (context) => const MinatKontakPage(),
+      },
+      initialRoute: '/',
+    );
+  }
+
+  ThemeData _buildTheme() {
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.primaryNavy,
+        brightness: Brightness.light,
+        primary: AppColors.primaryNavy,
+        secondary: AppColors.accentYellow,
+        surface: AppColors.backgroundWhite,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      scaffoldBackgroundColor: AppColors.backgroundWhite,
+      fontFamily: 'Roboto',
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.backgroundWhite,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+        titleTextStyle: TextStyle(
+          color: AppColors.primaryNavy,
+          fontWeight: FontWeight.w800,
+          fontSize: 20,
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.accentYellow,
+          foregroundColor: AppColors.primaryNavy,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+/// Shell utama aplikasi — mengelola bottom navigation & drawer state.
+class BakaraShell extends StatefulWidget {
+  const BakaraShell({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<BakaraShell> createState() => _BakaraShellState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _BakaraShellState extends State<BakaraShell> {
+  int _currentIndex = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  /// Status login (simulasi — akan diganti auth nyata di sprint berikutnya)
+  bool _isLoggedIn = false;
+
+  void _onTabTapped(int index) {
+    setState(() => _currentIndex = index);
   }
+
+  void _onAuthChanged() {
+    setState(() => _isLoggedIn = !_isLoggedIn);
+  }
+
+  /// Daftar halaman utama yang dikelola bottom nav
+  /// Urutan harus sesuai dengan indeks tab di BakaraBottomNav:
+  /// 0=Home, 1=Katalog, 2=Transaksi, 3=Minat & Kontak, 4=Profile
+  List<Widget> get _pages => [
+        HomePage(onNavigateTo: _onTabTapped),
+        const KatalogPage(),
+        const TransaksiPage(),
+        const MinatKontakPage(),
+        ProfilePage(
+          isLoggedIn: _isLoggedIn,
+          onAuthChanged: _onAuthChanged,
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      backgroundColor: AppColors.backgroundWhite,
+
+      // App Bar global
+      appBar: const BakaraAppBar(),
+
+      // Drawer navigasi global
+      drawer: BakaraDrawer(
+        onNavigateTo: _onTabTapped,
+        isLoggedIn: _isLoggedIn,
+        onAuthChanged: _onAuthChanged,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+
+      // Konten halaman aktif — IndexedStack mempertahankan state antar tab
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+
+      // Floating bottom nav — ditempatkan sebagai bottomNavigationBar
+      // agar tidak overlap konten; padding diatur di dalam widget
+      bottomNavigationBar: BakaraBottomNav(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
       ),
     );
   }
